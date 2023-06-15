@@ -21,29 +21,42 @@ module "ec2-manager" {
   keypair-name      = var.keypair-name
   authorized-ssh-ip = ["${var.authorized-ssh-ip}/32"]
   vpc-id            = module.main-network.vpc-id
-  subnet-id         = module.main-network.public-subnet-ids[0]
+  subnet-ids        = module.main-network.public-subnet-ids
 }
 
-module "ec2-client-01" {
+# module "ec2-client-01" {
+#   source            = "../terraform-aws-ec2"
+#   region            = var.region
+#   ami               = var.ami
+#   instance-type     = var.instance-type
+#   instance-name     = "${var.instance-name}-ansible_client-01"
+#   keypair-name      = var.keypair-name
+#   authorized-ssh-ip = ["${var.authorized-ssh-ip}/32", "${module.ec2-manager.ec2_public_ip}/32"]
+#   vpc-id            = module.main-network.vpc-id
+#   subnet-id         = module.main-network.public-subnet-ids[0]
+# }
+
+# module "ec2-client-02" {
+#   source            = "../terraform-aws-ec2"
+#   region            = var.region
+#   ami               = var.ami
+#   instance-type     = var.instance-type
+#   instance-name     = "${var.instance-name}-ansible_client-02"
+#   keypair-name      = var.keypair-name
+#   authorized-ssh-ip = ["${var.authorized-ssh-ip}/32", "${module.ec2-manager.ec2_public_ip}/32"]
+#   vpc-id            = module.main-network.vpc-id
+#   subnet-id         = module.main-network.public-subnet-ids[1]
+# }
+
+module "ec2-client" {
   source            = "../terraform-aws-ec2"
+  servers             = 3
   region            = var.region
   ami               = var.ami
   instance-type     = var.instance-type
-  instance-name     = "${var.instance-name}-ansible_client-01"
+  instance-name     = "${var.instance-name}-ansible_client"
   keypair-name      = var.keypair-name
-  authorized-ssh-ip = ["${var.authorized-ssh-ip}/32", "${module.ec2-manager.ec2_public_ip}/32"]
+  authorized-ssh-ip = ["${var.authorized-ssh-ip}/32", "${module.ec2-manager.ec2_private_ips[0]}/32"]
   vpc-id            = module.main-network.vpc-id
-  subnet-id         = module.main-network.public-subnet-ids[0]
-}
-
-module "ec2-client-02" {
-  source            = "../terraform-aws-ec2"
-  region            = var.region
-  ami               = var.ami
-  instance-type     = var.instance-type
-  instance-name     = "${var.instance-name}-ansible_client-02"
-  keypair-name      = var.keypair-name
-  authorized-ssh-ip = ["${var.authorized-ssh-ip}/32", "${module.ec2-manager.ec2_public_ip}/32"]
-  vpc-id            = module.main-network.vpc-id
-  subnet-id         = module.main-network.public-subnet-ids[1]
+  subnet-ids         = module.main-network.public-subnet-ids
 }

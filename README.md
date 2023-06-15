@@ -33,12 +33,10 @@ Some key fields about infrastructure created will be returned:
 - private-avaiable_zones
 - private-subnet-ids [] -> list(string)
 - public-subnet-ids [] -> list(string)
-- manager-instance-ip
+- manager-ip
 - manager-sg-id
-- client_01-ip
-- client-01-sg-id
-- client_02-ip
-- client-02-sg-id
+- client-ips
+- client-sg-id
 
 # TF commands
 

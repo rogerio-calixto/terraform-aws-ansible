@@ -11,7 +11,14 @@ module "main-network" {
   subnet_counts = var.subnet_counts
 }
 
+data "template_file" "user_data_manager" {
+  template = file("scripts/ansible_clients.sh")
+  # vars = {
+  #   environment = var.environment
+  # }
+}
 module "ec2-manager" {
+  user_data         = data.template_file.user_data_manager.rendered
   source            = "../terraform-aws-ec2"
   project           = var.project
   region            = var.region
@@ -24,8 +31,15 @@ module "ec2-manager" {
   subnet-ids        = module.main-network.public-subnet-ids
 }
 
+data "template_file" "user_data_client" {
+  template = file("scripts/ansible_client.sh")
+  # vars = {
+  #   environment = var.environment
+  # }
+}
 module "ec2-client" {
   source            = "../terraform-aws-ec2"
+  user_data         = data.template_file.user_data_client.rendered
   servers           = 3
   region            = var.region
   ami               = var.ami

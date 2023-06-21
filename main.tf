@@ -13,9 +13,9 @@ module "main-network" {
 
 data "template_file" "user_data_manager" {
   template = file("scripts/ansible_client.sh")
-  # vars = {
-  #   environment = var.environment
-  # }
+  vars = {
+    environment = var.s3-bucket-dest
+  }
 }
 module "ec2-manager" {
   user-data         = data.template_file.user_data_manager.rendered
@@ -50,3 +50,6 @@ module "ec2-client" {
   vpc-id            = module.main-network.vpc-id
   subnet-ids        = module.main-network.public-subnet-ids
 }
+
+# Criar Role para permitir s3 nas ec2
+# passar role arn para os modulos de instancias

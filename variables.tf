@@ -28,3 +28,7 @@ variable "instance-name" {
 }
 
 variable "authorized-ssh-ip" {}
+
+variable "s3-bucket-dest" {
+  default = "s3://buck-devops/repository/ansible/manager-keygen/" 
+}

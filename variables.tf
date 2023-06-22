@@ -30,5 +30,9 @@ variable "instance-name" {
 variable "authorized-ssh-ip" {}
 
 variable "s3-bucket-dest" {
-  default = "s3://buck-devops/repository/ansible/manager-keygen/" 
+  default = "s3://buck-devops/repository/ansible/manager-keygen/"
+}
+
+variable "email_keygen" {
+  default = "rpc.devops@gmail.com"
 }

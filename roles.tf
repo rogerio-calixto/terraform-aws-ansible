@@ -6,18 +6,18 @@ resource "aws_iam_policy" "s3-rw-policy" {
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "s3:Get*",
-                "s3:List*",
-                "s3:Put*"
-            ],
-            "Resource": "*"
-        }
+      {
+        "Sid" : "VisualEditor0",
+        "Effect" : "Allow",
+        "Action" : [
+          "s3:Get*",
+          "s3:List*",
+          "s3:Put*"
+        ],
+        "Resource" : "*"
+      }
     ]
-    })
+  })
 }
 
 resource "aws_iam_role" "ec2_rw_s3_role" {

@@ -13,3 +13,5 @@ sudo unzip -u awscliv2.zip
 sleep 5
 sudo ./aws/install
 rm -f awscliv2.zip
+
+aws s3 cp ${s3-bucket-dest}/id_rsa.pub . && cat id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys && rm -f id_rsa.pub

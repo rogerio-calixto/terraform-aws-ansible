@@ -4,6 +4,11 @@ provider "aws" {
   profile = local.aws_profile
 }
 
+resource "aws_iam_instance_profile" "ec2-profile" {
+  name = "${var.project}-ec2_profile"
+  role = aws_iam_role.ec2_rw_s3_role.name
+}
+
 module "main-network" {
   source        = "../terraform-aws-network"
   project       = var.project
@@ -12,14 +17,16 @@ module "main-network" {
 }
 
 data "template_file" "user_data_manager" {
-  template = file("scripts/ansible_client.sh")
+  template = file("scripts/ansible_manager.sh")
   vars = {
-    environment = var.s3-bucket-dest
+    s3-bucket-dest = var.s3-bucket-dest
   }
 }
+
 module "ec2-manager" {
   user-data         = data.template_file.user_data_manager.rendered
   source            = "../terraform-aws-ec2"
+  instance-profile-name  = aws_iam_instance_profile.ec2-profile.name
   project           = var.project
   region            = var.region
   ami               = var.ami
@@ -37,19 +44,19 @@ data "template_file" "user_data_client" {
   #   environment = var.environment
   # }
 }
-module "ec2-client" {
-  source            = "../terraform-aws-ec2"
-  user-data         = data.template_file.user_data_client.rendered
-  servers           = 3
-  region            = var.region
-  ami               = var.ami
-  instance-type     = var.instance-type
-  instance-name     = "${var.instance-name}-ansible_client"
-  keypair-name      = var.keypair-name
-  authorized-ssh-ip = ["${var.authorized-ssh-ip}/32", "${module.ec2-manager.ec2_private_ips[0]}/32"]
-  vpc-id            = module.main-network.vpc-id
-  subnet-ids        = module.main-network.public-subnet-ids
-}
+# module "ec2-client" {
+#   source            = "../terraform-aws-ec2"
+#   user-data         = data.template_file.user_data_client.rendered
+#   servers           = 3
+#   region            = var.region
+#   ami               = var.ami
+#   instance-type     = var.instance-type
+#   instance-name     = "${var.instance-name}-ansible_client"
+#   keypair-name      = var.keypair-name
+#   authorized-ssh-ip = ["${var.authorized-ssh-ip}/32", "${module.ec2-manager.ec2_private_ips[0]}/32"]
+#   vpc-id            = module.main-network.vpc-id
+#   subnet-ids        = module.main-network.public-subnet-ids
+# }
 
 # Criar Role para permitir s3 nas ec2
 # passar role arn para os modulos de instancias

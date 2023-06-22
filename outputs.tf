@@ -22,10 +22,10 @@ output "manager-sg-id" {
   value = module.ec2-manager.sg-id
 }
 
-output "client-ips" {
-  value = module.ec2-client.ec2_public_ips
-}
+# output "client-ips" {
+#   value = module.ec2-client.ec2_public_ips
+# }
 
-output "client-sg-id" {
-  value = module.ec2-client.sg-id
-}
+# output "client-sg-id" {
+#   value = module.ec2-client.sg-id
+# }

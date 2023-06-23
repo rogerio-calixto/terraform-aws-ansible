@@ -15,13 +15,14 @@ rm -f awscliv2.zip
 
 sleep 10
 
+# generate ssh-keygen and copy to s3
+
 AWS_KEY_PAIR_FILE="/home/ubuntu/.ssh/id_rsa"
 
 ssh-keygen -b 2048 -C "$email_keygen" -f "$AWS_KEY_PAIR_FILE" -m PEM -P "" -t rsa \
 && chmod 400 $AWS_KEY_PAIR_FILE \
 && aws s3 cp $AWS_KEY_PAIR_FILE.pub ${s3-bucket-dest}
 
-# # generate ssh-keygen and copy to s3
 # ssh-keygen -q -t rsa -N '' <<< $'\ny' >/dev/null 2>&1 \
 # && cd /home/ubuntu/.ssh \
 # && aws s3 cp id_rsa.pub ${s3-bucket-dest}

@@ -14,4 +14,10 @@ sleep 5
 sudo ./aws/install
 rm -f awscliv2.zip
 
-aws s3 cp ${s3-bucket-dest}/id_rsa.pub . && cat id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys && rm -f id_rsa.pub
+while [ ! -f /tmp/id_rsa.pub ]
+do
+   aws s3 cp ${s3-bucket-dest}id_rsa.pub /tmp
+   sleep 5
+done
+
+cat /tmp/id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys && rm -f /tmp/id_rsa.pub

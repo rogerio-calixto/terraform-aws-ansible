@@ -37,7 +37,7 @@ AWS_KEY_PAIR_FILE="/home/ubuntu/.ssh/id_rsa"
 
 # && ssh-keygen -b 2048 -C "$USR" -f "$SSH_KEY" -P "" -t rsa \
 SSH_KEY="/home/ubuntu/.ssh/id_rsa" \
-&& METADATA="ubuntu@$(curl http://169.254.169.254/latest/meta-data/local-ipv4)" \
+&& METADATA="ubuntu@ip-$(curl http://169.254.169.254/latest/meta-data/local-ipv4)" \
 && USR=$(echo $METADATA | sed s/[.]/-/g) \
 && ssh-keygen -C "$USR" -f "$SSH_KEY" -P "" \
 && chmod 400 $SSH_KEY \

@@ -49,7 +49,7 @@ module "ec2-client" {
   source                = "../terraform-aws-ec2"
   instance-profile-name = aws_iam_instance_profile.ec2-profile.name
   user-data             = data.template_file.user_data_client.rendered
-  servers               = 3
+  servers               = 2
   region                = var.region
   ami                   = var.ami
   instance-type         = var.instance-type

@@ -20,4 +20,4 @@ do
    sleep 5
 done
 
-cat /tmp/id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys && rm -f /tmp/id_rsa.pub
+cat /tmp/id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys && sudo rm -f /tmp/id_rsa.pub

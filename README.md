@@ -1,5 +1,5 @@
 # terraform-aws-ansible
-Creates instances with management by ansible
+Creates instances (manager and clients) for experimentation using ansible
 
 # Instruction:
 
@@ -12,7 +12,8 @@ Set the variables below according to your needs:
 - keypair-name
 - subnet_counts
 - instance-name
-- authorized-ssh-ip - list(string)-> [ For security don´t set it as default. Instead inform on terraform plan command ]
+- authorized-ssh-ip - list(string) -> 
+     [ For security don´t set it as default. Instead inform on terraform plan command ]
 
 ## Example:
 
@@ -33,9 +34,11 @@ Some key fields about infrastructure created will be returned:
 - private-avaiable_zones
 - private-subnet-ids [] -> list(string)
 - public-subnet-ids [] -> list(string)
-- manager-ip
+- manager-public-ips [] -> list(string)
+- manager-private-ips [] -> list(string)
 - manager-sg-id
-- client-ips
+- client-public-ips [] -> list(string)
+- client-private-ips [] -> list(string)
 - client-sg-id
 
 # TF commands

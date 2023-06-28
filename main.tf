@@ -20,7 +20,7 @@ data "template_file" "user_data_manager" {
   template = file("scripts/ansible_manager.sh")
   vars = {
     s3-bucket-dest = var.s3-bucket-dest
-    email_keygen   = var.email_keygen
+    s3-bucket-website = var.s3-bucket-website
   }
 }
 
@@ -49,7 +49,7 @@ module "ec2-client" {
   source                = "../terraform-aws-ec2"
   instance-profile-name = aws_iam_instance_profile.ec2-profile.name
   user-data             = data.template_file.user_data_client.rendered
-  servers               = 2
+  servers               = 3
   region                = var.region
   ami                   = var.ami
   instance-type         = var.instance-type

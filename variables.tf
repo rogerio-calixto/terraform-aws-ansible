@@ -33,6 +33,10 @@ variable "s3-bucket-dest" {
   default = "s3://buck-devops/repository/ansible/manager-keygen/"
 }
 
+variable "s3-bucket-website" {
+  default = "s3://buck-devops/repository/website/"
+}
+
 variable "email_keygen" {
   default = "rpc.devops@gmail.com"
 }

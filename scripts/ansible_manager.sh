@@ -76,7 +76,7 @@ echo "  apt:" >> main.yml
 echo -e "    name: nginx\n" >> main.yml
 echo "- name: copy contents from /ansible-projects/website to /var/www/html" >> main.yml
 echo "  copy:" >> main.yml
-echo "    src: files/website/" >> main.yml
+echo "    src: /ansible-projects/website/" >> main.yml
 echo "    dest: /var/www/html/" >> main.yml
 echo "    directory_mode:" >> main.yml
 echo "  tags:" >> main.yml

@@ -41,15 +41,3 @@ module "ec2-client" {
   vpc-id                = module.main-network.vpc-id
   subnet-ids            = module.main-network.public-subnet-ids
 }
-
-module "ec2-test" {
-  source                = "../terraform-aws-ec2"
-  project               = var.project
-  region                = var.region
-  ami                   = var.ami
-  instance-type         = var.instance-type
-  instance-name         = "${var.instance-name}-test"
-  authorized-ssh-ip     = ["${var.authorized-ssh-ip}/32"]
-  vpc-id                = module.main-network.vpc-id
-  subnet-ids            = module.main-network.public-subnet-ids
-}

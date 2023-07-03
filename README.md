@@ -55,9 +55,10 @@ terraform destroy -auto-approve
 After about 10 minutes infrastructure to be created:
    - connect on the manager machine via ssh,
    - go to the projects folder typing: cd /ansible-projects
-   - set inventory file, set the client´s local ips you want to manage in "app" session
+   - set inventory file, set the client´s private ips you want to manage in "app" session
 
 After this just need to execute the ansible-script.sh file typing: bash ansible-script.sh
+Just in the first time you should type "yes" for each client instance to be configured.
 
 This command will install nginx and configure a simple website in the clients machine configured
 and you wil be able to access them through their public ips

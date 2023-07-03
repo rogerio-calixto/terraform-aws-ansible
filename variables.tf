@@ -37,6 +37,6 @@ variable "s3-bucket-website" {
   default = "s3://buck-devops/repository/website/"
 }
 
-variable "email_keygen" {
-  default = "rpc.devops@gmail.com"
+variable "s3-bucket-portfolio-website" {
+  default = "s3://buck-devops/repository/portfolio-website/"
 }

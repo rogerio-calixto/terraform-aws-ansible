@@ -52,13 +52,16 @@ terraform destroy -auto-approve
 
 # How to test:
 
-After about 10 minutes infrastructure to be created:
+After about 5 minutes infrastructure to be created:
    - connect on the manager machine via ssh,
    - go to the projects folder typing: cd /ansible-projects
-   - set inventory file, set the client´s private ips you want to manage in "app" session
+   - set inventory file, set the client´s private ips you want to manage in "app" and "portfolio" sessions
 
-After this just need to execute the ansible-script.sh file typing: bash ansible-script.sh
-Just in the first time you should type "yes" for each client instance to be configured.
+After this just need to execute the ansible-script-app.sh and ansible-script-portfolio.sh files typing:
+   - bash ansible-script-app.sh
+   - bash ansible-script-portfolio.sh
+
+Just in the first time you should each command type "yes" for each client instance to be configured.
 
 This command will install nginx and configure a simple website in the clients machine configured
 and you wil be able to access them through their public ips

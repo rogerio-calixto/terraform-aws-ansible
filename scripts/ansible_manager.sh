@@ -63,7 +63,8 @@ echo -e "    - debug:" >> playbook-app.yml
 echo -e "        msg: 'starting webserver configuration'\n" >> playbook-app.yml
 
 echo "  roles:" >> playbook-app.yml
-echo -e "    - nginx\n" >> playbook-app.yml
+echo "    - role: nginx" >> playbook-app.yml
+echo -e "      website_type: app\n" >> playbook-app.yml
 
 echo "  post_tasks:" >> playbook-app.yml
 echo "    - debug:" >> playbook-app.yml
@@ -72,14 +73,15 @@ echo "        msg: 'webserver configuration successful'" >> playbook-app.yml
 # creates playbook-portfolio.yml
 
 echo "- name: use nginx role playbook" > playbook-portfolio.yml
-echo "  hosts: db" >> playbook-portfolio.yml
+echo "  hosts: portfolio" >> playbook-portfolio.yml
 echo -e "  become: true\n" >> playbook-portfolio.yml
 echo "  pre_tasks:" >> playbook-portfolio.yml
 echo -e "    - debug:" >> playbook-portfolio.yml
 echo -e "        msg: 'starting portfolio configuration'\n" >> playbook-portfolio.yml
 
 echo "  roles:" >> playbook-portfolio.yml
-echo -e "    - nginx\n" >> playbook-portfolio.yml
+echo "    - role: nginx" >> playbook-portfolio.yml
+echo -e "      website_type: portfolio\n" >> playbook-portfolio.yml
 
 echo "  post_tasks:" >> playbook-portfolio.yml
 echo "    - debug:" >> playbook-portfolio.yml
@@ -91,7 +93,25 @@ mkdir roles
 cd roles
 ansible-galaxy init nginx
 
-cd nginx/tasks
+# set parameters for tasks
+
+cd nginx/defaults
+echo "website_type: none" > main.yml
+cd ..
+
+# set tasks
+
+cd tasks
+
+# creates main configuration
+
+echo "- name: install app website" > main.yml
+echo "  include_tasks: main-app.yml" >> main.yml
+echo -e "  when: website_type == 'app'\n" >> main.yml
+
+echo "- name: install portfolio website" >> main.yml
+echo "  include_tasks: main-portfolio.yml" >> main.yml
+echo -e "  when: website_type == 'portfolio'\n" >> main.yml
 
 # creates app configuration
 

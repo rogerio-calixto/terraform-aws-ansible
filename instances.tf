@@ -3,6 +3,7 @@ data "template_file" "user_data_manager" {
   vars = {
     s3-bucket-dest = var.s3-bucket-dest
     s3-bucket-website = var.s3-bucket-website
+    s3-bucket-portfolio-website = var.s3-bucket-portfolio-website
   }
 }
 
